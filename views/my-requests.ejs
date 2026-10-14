@@ -1,0 +1,7 @@
+<%- include("partials/header", { title, user, flash }) %>
+<div class="page-heading"><div><div class="eyebrow">YOUR ACTIVITY</div><h1>My requests</h1><p class="muted">Track the maintenance issues you have reported.</p></div><a class="button button-primary" href="/requests/new">＋ New request</a></div>
+<section class="panel table-panel">
+<% if (!requests.length) { %><div class="empty-state"><div class="empty-icon">▤</div><h3>No requests submitted</h3><p>Your submitted maintenance requests will be listed here.</p><a class="button button-primary" href="/requests/new">Submit a request</a></div>
+<% } else { %><div class="table-wrap"><table><thead><tr><th>Request</th><th>Location</th><th>Priority</th><th>Status</th><th>Date submitted</th><th></th></tr></thead><tbody><% requests.forEach(r => { %><tr><td><strong>#<%= r.id %> · <%= r.title %></strong><small><%= r.category %></small></td><td><%= r.location %></td><td><span class="priority priority-<%= r.priority.toLowerCase() %>"><%= r.priority %></span></td><td><span class="status status-<%= r.status.toLowerCase().replace(" ", "-") %>"><%= r.status %></span></td><td><%= r.created_at %></td><td><a class="text-link" href="/requests/<%= r.id %>">Details</a></td></tr><% }) %></tbody></table></div><% } %>
+</section>
+<%- include("partials/footer") %>

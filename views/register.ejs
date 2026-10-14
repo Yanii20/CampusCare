@@ -1,0 +1,14 @@
+<%- include("partials/header", { title, user: null, flash }) %>
+<section class="narrow-page"><div class="panel">
+  <div class="eyebrow">GET STARTED</div><h1>Create an account</h1><p class="muted">Student and faculty accounts can submit and track maintenance requests.</p>
+  <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+  <form method="POST" action="/register" class="form-stack">
+    <label>Full name<input name="name" value="<%= form.name || '' %>" maxlength="80" required></label>
+    <label>Email address<input type="email" name="email" value="<%= form.email || '' %>" required></label>
+    <label>Account type<select name="role" required><option value="">Choose role</option><option value="student">Student</option><option value="faculty">Faculty</option></select></label>
+    <label>Password<input type="password" name="password" minlength="8" required><small>At least 8 characters.</small></label>
+    <button class="button button-primary" type="submit">Create account</button>
+  </form>
+  <p class="auth-switch">Already registered? <a href="/login">Sign in</a></p>
+</div></section>
+<%- include("partials/footer") %>

@@ -1,0 +1,16 @@
+<%- include("partials/header", { title, user, flash }) %>
+<div class="page-heading"><div><div class="eyebrow">OVERVIEW</div><h1>Good day, <%= user.name.split(" ")[0] %>.</h1><p class="muted"><%= ["admin","staff"].includes(user.role) ? "Here is the current campus maintenance activity." : "Here is an overview of your maintenance requests." %></p></div>
+<% if (["student","faculty"].includes(user.role)) { %><a class="button button-primary" href="/requests/new">＋ New request</a><% } else { %><a class="button button-primary" href="/requests/manage">Manage requests</a><% } %></div>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-label">Total requests</span><strong><%= counts.total %></strong><span class="stat-foot">Recorded requests</span></div>
+  <div class="stat-card"><span class="stat-label">Pending</span><strong><%= counts.pending %></strong><span class="stat-foot">Awaiting action</span></div>
+  <div class="stat-card"><span class="stat-label">In progress</span><strong><%= counts.progress %></strong><span class="stat-foot">Being worked on</span></div>
+  <div class="stat-card"><span class="stat-label">Completed</span><strong><%= counts.completed %></strong><span class="stat-foot">Work finished</span></div>
+</div>
+<section class="panel table-panel"><div class="section-heading"><div><h2>Recent requests</h2><p class="muted">The latest activity in CampusCare.</p></div><a href="<%= ['admin','staff'].includes(user.role) ? '/requests/manage' : '/requests/mine' %>" class="text-link">View all →</a></div>
+  <% if (!recent.length) { %><div class="empty-state"><div class="empty-icon">▤</div><h3>No requests yet</h3><p>Maintenance requests will appear here after they are submitted.</p><% if (["student","faculty"].includes(user.role)) { %><a class="button button-primary" href="/requests/new">Submit first request</a><% } %></div>
+  <% } else { %><div class="table-wrap"><table><thead><tr><th>Request</th><th>Location</th><% if (["admin","staff"].includes(user.role)) { %><th>Submitted by</th><% } %><th>Priority</th><th>Status</th><th></th></tr></thead><tbody>
+  <% recent.forEach(r => { %><tr><td><strong>#<%= r.id %> · <%= r.title %></strong><small><%= r.category %></small></td><td><%= r.location %></td><% if (["admin","staff"].includes(user.role)) { %><td><%= r.requester_name %></td><% } %><td><span class="priority priority-<%= r.priority.toLowerCase() %>"><%= r.priority %></span></td><td><span class="status status-<%= r.status.toLowerCase().replace(" ", "-") %>"><%= r.status %></span></td><td><a class="text-link" href="/requests/<%= r.id %>">Details</a></td></tr><% }) %>
+  </tbody></table></div><% } %>
+</section>
+<%- include("partials/footer") %>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | CampusCare</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="<%= user ? '/dashboard' : '/login' %>"><span class="brand-mark">C</span><span>CampusCare<small>Maintenance Portal</small></span></a>
+  <% if (user) { %>
+    <nav class="nav">
+      <a href="/dashboard">Dashboard</a>
+      <% if (["student", "faculty"].includes(user.role)) { %>
+        <a href="/requests/new">New request</a><a href="/requests/mine">My requests</a>
+      <% } %>
+      <% if (["admin", "staff"].includes(user.role)) { %><a href="/requests/manage">Manage requests</a><% } %>
+      <% if (user.role === "admin") { %><a href="/admin/users">Users</a><% } %>
+    </nav>
+    <div class="account"><span><%= user.name %><small><%= user.role %></small></span><form action="/logout" method="POST"><button class="button button-ghost button-small" type="submit">Log out</button></form></div>
+  <% } %>
+</header>
+<main class="container">
+  <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.message %></div><% } %>
