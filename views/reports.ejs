@@ -1,0 +1,79 @@
+<%- include("partials/header", { title, user, flash }) %>
+<div class="page-heading">
+  <div>
+    <div class="eyebrow">REPORTS</div>
+    <h1>Maintenance reports</h1>
+    <p class="muted">Request volume, resolution time, and recurring issues.</p>
+  </div>
+  <a class="button button-primary" href="/requests/manage">Manage requests</a>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <span class="stat-label">Total requests</span>
+    <strong><%= total %></strong>
+    <span class="stat-foot">Recorded requests</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">Average resolution time</span>
+    <strong><%= avgHours === null ? "N/A" : avgHours + " h" %></strong>
+    <span class="stat-foot">Completed requests only</span>
+  </div>
+</div>
+
+<section class="panel table-panel">
+  <div class="section-heading"><div><h2>Requests by status</h2></div></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Status</th><th>Count</th></tr></thead>
+      <tbody>
+        <% if (!byStatus.length) { %>
+          <tr><td colspan="2">No data yet.</td></tr>
+        <% } %>
+        <% byStatus.forEach(r => { %>
+          <tr>
+            <td><span class="status status-<%= r.status.toLowerCase().replace(" ", "-") %>"><%= r.status %></span></td>
+            <td><%= r.n %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel table-panel">
+  <div class="section-heading"><div><h2>Requests by category</h2></div></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Category</th><th>Count</th></tr></thead>
+      <tbody>
+        <% if (!byCategory.length) { %>
+          <tr><td colspan="2">No data yet.</td></tr>
+        <% } %>
+        <% byCategory.forEach(r => { %>
+          <tr><td><%= r.category %></td><td><%= r.n %></td></tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel table-panel">
+  <div class="section-heading">
+    <div><h2>Recurring issues by location</h2><p class="muted">Top 10 locations with the most requests.</p></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Location</th><th>Count</th></tr></thead>
+      <tbody>
+        <% if (!byLocation.length) { %>
+          <tr><td colspan="2">No data yet.</td></tr>
+        <% } %>
+        <% byLocation.forEach(r => { %>
+          <tr><td><%= r.location %></td><td><%= r.n %></td></tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%- include("partials/footer") %>
