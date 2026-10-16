@@ -4,12 +4,17 @@
   <div class="panel auth-panel"><div class="eyebrow">WELCOME BACK</div><h2>Sign in to CampusCare</h2><p class="muted">Use your campus account to continue.</p>
     <% if (error) { %><div class="alert error"><%= error %></div><% } %>
     <form method="POST" action="/login" class="form-stack">
+      <label>Sign in as<select name="login_as" required>
+        <option value="requester">Requester</option>
+        <option value="technician">Technician</option>
+        <option value="admin">Administrator</option>
+      </select></label>
       <label>Email address<input type="email" name="email" placeholder="you@campus.edu" required autocomplete="username"></label>
       <label>Password<input type="password" name="password" placeholder="Enter your password" required autocomplete="current-password"></label>
       <button class="button button-primary button-full" type="submit">Sign in</button>
     </form>
-    <p class="auth-switch">New here? <a href="/register">Create a student/faculty account</a></p>
-    <div class="demo-box"><strong>Demo accounts</strong><small>Admin: admin@campuscare.local / Admin123!</small><small>Staff: staff@campuscare.local / Staff123!</small><small>Student: student@campuscare.local / Student123!</small><small>Faculty: faculty@campuscare.local / Faculty123!</small></div>
+    <p class="auth-switch">New here? <a href="/register">Create an account</a></p>
+    
   </div>
 </section>
 <%- include("partials/footer") %>
