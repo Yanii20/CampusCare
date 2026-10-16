@@ -219,6 +219,7 @@ app.post("/register", (req, res) => {
   res.redirect("/login");
 });
 
+app.use("/reports", require("./routes/reports")(requireRole));
 app.use((req, res) => res.status(404).render("error", { title: "Page not found", message: "The page you requested does not exist." }));
 
 app.listen(PORT, () => {

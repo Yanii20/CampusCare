@@ -15,7 +15,7 @@
       <% if (["student", "faculty"].includes(user.role)) { %>
         <a href="/requests/new">New request</a><a href="/requests/mine">My requests</a>
       <% } %>
-      <% if (["admin", "staff"].includes(user.role)) { %><a href="/requests/manage">Manage requests</a><% } %>
+      <% if (["admin", "staff"].includes(user.role)) { %><a href="/requests/manage">Manage requests</a><a href="/reports">Reports</a><% } %>
       <% if (user.role === "admin") { %><a href="/admin/users">Users</a><% } %>
     </nav>
     <div class="account"><span><%= user.name %><small><%= user.role %></small></span><form action="/logout" method="POST"><button class="button button-ghost button-small" type="submit">Log out</button></form></div>
