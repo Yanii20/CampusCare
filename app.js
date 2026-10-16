@@ -115,7 +115,8 @@ app.post("/requests", requireRole("student", "faculty"), (req, res) => {
     category: String(req.body.category || "").trim(),
     location: String(req.body.location || "").trim(),
     priority: String(req.body.priority || "Normal"),
-    description: String(req.body.description || "").trim()
+    description: String(req.body.description || "").trim(),
+    is_safety: req.body.is_safety === "on" ? 1 : 0
   };
   const categories = ["Electrical", "Plumbing", "Furniture", "Air Conditioning", "Cleaning", "Other"];
   const priorities = ["Low", "Normal", "High", "Urgent"];
@@ -127,9 +128,9 @@ app.post("/requests", requireRole("student", "faculty"), (req, res) => {
     return res.status(400).render("new-request", { title: "New request", error: "Please check the field values and length limits.", form });
   }
   const result = db.prepare(`
-    INSERT INTO requests (user_id, title, category, location, priority, description, status)
-    VALUES (?, ?, ?, ?, ?, ?, 'Pending')
-  `).run(req.session.user.id, form.title, form.category, form.location, form.priority, form.description);
+    INSERT INTO requests (user_id, title, category, location, priority, description, is_safety, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, 'Pending')
+  `).run(req.session.user.id, form.title, form.category, form.location, form.priority, form.description, form.is_safety);
   req.session.flash = { type: "success", message: `Request #${result.lastInsertRowid} was submitted.` };
   res.redirect("/requests/mine");
 });

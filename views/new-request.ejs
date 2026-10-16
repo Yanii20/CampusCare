@@ -6,6 +6,7 @@
   <div class="form-row"><label>Category <span class="required">*</span><select name="category" required><option value="">Select category</option><% ["Electrical","Plumbing","Furniture","Air Conditioning","Cleaning","Other"].forEach(c => { %><option <%= form.category === c ? "selected" : "" %>><%= c %></option><% }) %></select></label>
   <label>Priority<select name="priority"><% ["Low","Normal","High","Urgent"].forEach(p => { %><option <%= (form.priority || "Normal") === p ? "selected" : "" %>><%= p %></option><% }) %></select></label></div>
   <label>Building / room / location <span class="required">*</span><input name="location" value="<%= form.location || '' %>" maxlength="120" placeholder="e.g. Main Building, Room 204" required></label>
+  <label><span><input type="checkbox" name="is_safety" <%= form.is_safety ? "checked" : "" %>> This is a safety concern (e.g., broken lock, faulty lighting, exposed wiring)</span></label>
   <label>Description <span class="required">*</span><textarea name="description" rows="6" maxlength="1500" placeholder="Describe the issue and any useful details..." required><%= form.description || '' %></textarea><small>Maximum 1,500 characters. Please do not include passwords or other sensitive information.</small></label>
   <div class="form-actions"><a href="/dashboard" class="button button-ghost">Cancel</a><button type="submit" class="button button-primary">Submit request →</button></div>
 </form></section>
