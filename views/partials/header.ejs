@@ -18,7 +18,7 @@
       <% if (["admin", "staff"].includes(user.role)) { %><a href="/requests/manage">Manage requests</a><% } %>
       <% if (user.role === "admin") { %><a href="/admin/users">Users</a><% } %>
     </nav>
-    <div class="account"><span><%= user.name %><small><%= user.role %></small></span><form action="/logout" method="POST"><button class="button button-ghost button-small" type="submit">Log out</button></form></div>
+    <div class="account"><span><%= user.name %><small><%= roleLabel(user.role) %></small></span><form action="/logout" method="POST"><button class="button button-ghost button-small" type="submit">Log out</button></form></div>
   <% } %>
 </header>
 <main class="container">
