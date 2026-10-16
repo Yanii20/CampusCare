@@ -71,12 +71,15 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const email = String(req.body.email || "").trim().toLowerCase();
   const password = String(req.body.password || "");
-  if (!email || !password) {
-    return res.status(400).render("login", { title: "Sign in", error: "Enter both your email and password." });
+  const loginAs = String(req.body.login_as || "");
+  const roleGroups = { requester: ["student", "faculty"], technician: ["staff"], admin: ["admin"] };
+
+  if (!email || !password || !roleGroups[loginAs]) {
+    return res.status(400).render("login", { title: "Sign in", error: "Enter your email and password, and choose a role." });
   }
   const account = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
-  if (!account || !bcrypt.compareSync(password, account.password_hash)) {
-    return res.status(401).render("login", { title: "Sign in", error: "Invalid email or password." });
+  if (!account || !bcrypt.compareSync(password, account.password_hash) || !roleGroups[loginAs].includes(account.role)) {
+    return res.status(401).render("login", { title: "Sign in", error: "Invalid email, password, or role." });
   }
   req.session.user = { id: account.id, name: account.name, email: account.email, role: account.role };
   res.redirect("/dashboard");
