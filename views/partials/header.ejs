@@ -7,19 +7,51 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="<%= user ? '/dashboard' : '/login' %>"><span class="brand-mark">C</span><span>CampusCare<small>Maintenance Portal</small></span></a>
-  <% if (user) { %>
-    <nav class="nav">
-      <a href="/dashboard">Dashboard</a>
-      <% if (["student", "faculty"].includes(user.role)) { %>
-        <a href="/requests/new">New request</a><a href="/requests/mine">My requests</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <!-- Brand / Logo -->
+      <a class="brand" href="<%= user ? '/dashboard' : '/login' %>">
+        <span class="brand-mark">C</span>
+        <span class="brand-text">
+          CampusCare
+          <small>Maintenance Portal</small>
+        </span>
+      </a>
+
+      <% if (user) { %>
+        <!-- Role-based Navigation -->
+        <nav class="nav">
+          <a href="/dashboard" class="nav-link">Dashboard</a>
+
+          <% if (["student", "faculty"].includes(user.role)) { %>
+            <a href="/requests/new" class="nav-link">New Request</a>
+            <a href="/requests/mine" class="nav-link">My Requests</a>
+          <% } %>
+
+          <% if (["admin", "staff"].includes(user.role)) { %>
+            <a href="/requests/manage" class="nav-link">Manage Requests</a>
+          <% } %>
+
+          <% if (user.role === "admin") { %>
+            <a href="/admin/users" class="nav-link">Users</a>
+          <% } %>
+        </nav>
+
+        <!-- User Account Info + Logout -->
+        <div class="account">
+          <div class="account-info">
+            <span class="account-name"><%= user.name %></span>
+            <small class="account-role"><%= user.role %></small>
+          </div>
+          <form action="/logout" method="POST" class="logout-form">
+            <button class="button button-ghost button-small" type="submit">Log out</button>
+          </form>
+        </div>
       <% } %>
-      <% if (["admin", "staff"].includes(user.role)) { %><a href="/requests/manage">Manage requests</a><% } %>
-      <% if (user.role === "admin") { %><a href="/admin/users">Users</a><% } %>
-    </nav>
-    <div class="account"><span><%= user.name %><small><%= user.role %></small></span><form action="/logout" method="POST"><button class="button button-ghost button-small" type="submit">Log out</button></form></div>
-  <% } %>
-</header>
-<main class="container">
-  <% if (flash) { %><div class="alert <%= flash.type %>"><%= flash.message %></div><% } %>
+    </div>
+  </header>
+
+  <main class="container">
+    <% if (flash) { %>
+      <div class="alert <%= flash.type %>"><%= flash.message %></div>
+    <% } %>
