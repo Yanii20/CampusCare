@@ -1,14 +1,116 @@
+
 <%- include("partials/header", { title, user: null, flash }) %>
-<section class="narrow-page"><div class="panel">
-  <div class="eyebrow">GET STARTED</div><h1>Create an account</h1><p class="muted">Student and faculty accounts can submit and track maintenance requests.</p>
-  <% if (error) { %><div class="alert error"><%= error %></div><% } %>
-  <form method="POST" action="/register" class="form-stack">
-    <label>Full name<input name="name" value="<%= form.name || '' %>" maxlength="80" required></label>
-    <label>Email address<input type="email" name="email" value="<%= form.email || '' %>" required></label>
-    <label>Account type<select name="role" required><option value="">Choose role</option><option value="student">Student</option><option value="faculty">Faculty</option></select></label>
-    <label>Password<input type="password" name="password" minlength="8" required><small>At least 8 characters.</small></label>
-    <button class="button button-primary" type="submit">Create account</button>
-  </form>
-  <p class="auth-switch">Already registered? <a href="/login">Sign in</a></p>
-</div></section>
+
+<section class="narrow-page">
+  <div class="panel">
+
+    <div class="eyebrow">GET STARTED</div>
+
+    <h1>Create an account</h1>
+
+    <p class="muted">
+      Create an account to submit, manage, and track
+      campus maintenance requests.
+    </p>
+
+    <% if (error) { %>
+      <div class="alert error">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/register" class="form-stack">
+
+      <label for="name">
+        Full name
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="<%= form.name || '' %>"
+          placeholder="Enter your full name"
+          maxlength="80"
+          autocomplete="name"
+          required
+        >
+      </label>
+
+      <label for="email">
+        Email address
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="<%= form.email || '' %>"
+          placeholder="Enter your email address"
+          autocomplete="email"
+          required
+        >
+      </label>
+
+      <label for="role">
+        Account type
+
+        <select
+          id="role"
+          name="role"
+          required
+        >
+          <option value="" disabled
+            <%= !form.role ? 'selected' : '' %>>
+            Choose account type
+          </option>
+
+          <option
+            value="student"
+            <%= form.role === 'student' ? 'selected' : '' %>
+          >
+            Requester
+          </option>
+
+          <option
+            value="staff"
+            <%= form.role === 'staff' ? 'selected' : '' %>
+          >
+            Maintenance Staff
+          </option>
+
+        </select>
+      </label>
+
+      <label for="password">
+        Password
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Create a password"
+          minlength="8"
+          autocomplete="new-password"
+          required
+        >
+
+        <small>
+          At least 8 characters.
+        </small>
+      </label>
+
+      <button
+        class="button button-primary"
+        type="submit"
+      >
+        Create account
+      </button>
+
+    </form>
+
+    <p class="auth-switch">
+      Already registered?
+      <a href="/login">Sign in</a>
+    </p>
+
+  </div>
+</section>
+
 <%- include("partials/footer") %>
