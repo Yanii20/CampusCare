@@ -28,9 +28,9 @@ The SQLite database file `campuscare.sqlite` is created automatically when the a
 
 ## Demo accounts
 These accounts are seeded for local classroom testing. Change or remove them before any real deployment:
-- Admin: `admin@campuscare.local` / `Admin123!`
-- Maintenance staff: `staff@campuscare.local` / `Staff123!`
-- Student: `student@campuscare.local` / `Student123!`
+- Admin: `admin@gmail.com` / `Admin123!`
+- Maintenance staff: `staff@gmail.com` / `Staff123!`
+- Student: `student@gmail.com` / `Student123!`
 - Faculty: `faculty@campuscare.local` / `Faculty123!`
 
 Registration is available only for Student and Faculty roles. Staff/admin accounts are seeded by the local demo setup; the public registration form cannot create privileged accounts.

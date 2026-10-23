@@ -1,0 +1,140 @@
+
+<%- include("partials/header", { title, user, flash }) %>
+
+<div class="page-heading">
+  <div>
+    <div class="eyebrow">CAMPUSCARE ANALYTICS</div>
+    <h1>Maintenance Reports</h1>
+    <p class="muted">
+      Review maintenance requests and track campus service progress.
+    </p>
+  </div>
+
+  <button class="button button-primary" onclick="window.print()">
+    Print report
+  </button>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-top">
+      <span class="stat-label">Total requests</span>
+    </div>
+    <strong><%= counts.total %></strong>
+    <span class="stat-foot">All recorded requests</span>
+  </div>
+
+  <div class="stat-card stat-pending">
+    <div class="stat-top">
+      <span class="stat-label">Pending</span>
+    </div>
+    <strong><%= counts.pending %></strong>
+    <span class="stat-foot">Awaiting staff review</span>
+  </div>
+
+  <div class="stat-card stat-progress">
+    <div class="stat-top">
+      <span class="stat-label">In progress</span>
+    </div>
+    <strong><%= counts.progress %></strong>
+    <span class="stat-foot">Currently being handled</span>
+  </div>
+
+  <div class="stat-card stat-completed">
+    <div class="stat-top">
+      <span class="stat-label">Completed</span>
+    </div>
+    <strong><%= counts.completed %></strong>
+    <span class="stat-foot">Resolved requests</span>
+  </div>
+</div>
+
+<section class="panel table-panel">
+  <div class="section-heading">
+    <div>
+      <h2>All maintenance requests</h2>
+      <p class="muted">
+        Detailed list of submitted campus maintenance reports.
+      </p>
+    </div>
+  </div>
+
+  <% if (!requests.length) { %>
+    <div class="empty-state">
+      <h3>No reports available yet</h3>
+      <p>Submitted maintenance requests will appear here.</p>
+    </div>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Request</th>
+            <th>Location</th>
+            <th>Submitted by</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Date submitted</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% requests.forEach(r => { %>
+            <tr>
+              <td>
+                <strong><%= r.title %></strong>
+                <small>#<%= r.id %> · <%= r.category %></small>
+              </td>
+
+              <td><%= r.location %></td>
+              <td><%= r.requester_name %></td>
+
+              <td>
+                <span class="priority priority-<%= r.priority.toLowerCase() %>">
+                  <%= r.priority %>
+                </span>
+              </td>
+
+              <td>
+                <span class="status status-<%= r.status.toLowerCase().replace(' ', '-') %>">
+                  <%= r.status %>
+                </span>
+              </td>
+
+              <td><%= r.created_at %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+<style>
+  @media print {
+    .topbar,
+    .workspace-bar,
+    .page-heading button,
+    .footer {
+      display: none !important;
+    }
+
+    .container {
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+    }
+
+    .panel,
+    .stat-card {
+      box-shadow: none !important;
+      break-inside: avoid;
+    }
+
+    body {
+      background: white !important;
+    }
+  }
+</style>
+
+<%- include("partials/footer") %>

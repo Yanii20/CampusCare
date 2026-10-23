@@ -2,16 +2,20 @@
 <%- include("partials/header", { title, user: null, flash }) %>
 
 <section class="auth-layout">
+
   <div class="auth-intro">
+
     <div class="eyebrow">
       CAMPUS FACILITIES • SERVICE PORTAL
     </div>
 
-    <h1>A better campus starts with taking care of it.</h1>
+    <h1>
+      A better campus starts with taking care of it.
+    </h1>
 
     <p>
-      Report facility issues, follow progress, and help keep
-      your campus safe and functional.
+      Report facility issues, follow progress, and help
+      keep your campus safe and functional.
     </p>
 
     <div class="feature-line">
@@ -25,24 +29,30 @@
     <div class="feature-line">
       ✓ Keep campus maintenance organized
     </div>
+
   </div>
 
   <div class="panel auth-panel">
+
     <div class="eyebrow">WELCOME BACK</div>
 
     <h2>Sign in to CampusCare</h2>
 
     <p class="muted">
-      Use your campus account to continue.
+      Sign in using your Requester or Maintenance Staff account.
     </p>
 
     <% if (error) { %>
-      <div class="alert error"><%= error %></div>
+      <div class="alert error">
+        <%= error %>
+      </div>
     <% } %>
 
     <form method="POST" action="/login" class="form-stack">
+
       <label for="email">
         Email address
+
         <input
           type="email"
           class="form-control"
@@ -57,6 +67,7 @@
 
       <label for="password">
         Password
+
         <input
           type="password"
           class="form-control"
@@ -74,15 +85,18 @@
       >
         Sign in
       </button>
+
     </form>
 
     <p class="auth-switch">
       New here?
       <a href="/register">
-        Create a student/faculty account
+        Create a Requester or Maintenance Staff account
       </a>
     </p>
+
   </div>
+
 </section>
 
 <%- include("partials/footer") %>
