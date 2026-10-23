@@ -1,4 +1,14 @@
 </main>
-<footer class="footer">CampusCare · Campus Maintenance Request System</footer>
+<footer class="footer"><span>CampusCare · Campus Maintenance Request System</span><span>Made for a better campus <span class="footer-star">✳</span></span></footer>
+<script>
+  document.querySelectorAll('.nav a').forEach(function (link) {
+    var path = window.location.pathname;
+    var target = link.getAttribute('href');
+    if (path === target || (target === '/requests/manage' && /^\/requests\/\d+$/.test(path))) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+</script>
 </body>
 </html>

@@ -34,10 +34,10 @@ db.exec(`
 `);
 
 const seedUsers = [
-  { name: "Campus Administrator", email: "admin@campuscare.local", password: "Admin123!", role: "admin" },
-  { name: "Maintenance Staff", email: "staff@campuscare.local", password: "Staff123!", role: "staff" },
-  { name: "Sample Student", email: "student@campuscare.local", password: "Student123!", role: "student" },
-  { name: "Sample Faculty", email: "faculty@campuscare.local", password: "Faculty123!", role: "faculty" }
+  { name: "Campus Administrator", email: "admin@gmail.com", password: "Admin123!", role: "admin" },
+  { name: "Maintenance Staff", email: "staff@gmail.com", password: "Staff123!", role: "staff" },
+  { name: "Sample Student", email: "student@gmail.com", password: "Student123!", role: "student" },
+  { name: "Sample Faculty", email: "faculty@gmail.com", password: "Faculty123!", role: "faculty" }
 ];
 
 const insertUser = db.prepare("INSERT OR IGNORE INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)");
