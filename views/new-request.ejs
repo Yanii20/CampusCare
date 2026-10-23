@@ -9,19 +9,25 @@
       Share the details so campus staff can understand and resolve the problem.
     </p>
   </div>
-  <a href="/requests/mine" class="button button-ghost">My requests</a>
+
+  <a href="/requests/mine" class="button button-ghost">
+    My requests
+  </a>
 </div>
 
 <div class="form-layout">
   <section class="panel">
+
     <% if (error) { %>
       <div class="alert error"><%= error %></div>
     <% } %>
 
     <form method="POST" action="/requests" class="form-stack" id="request-form">
 
+      <!-- REQUEST TITLE -->
       <label for="request-title">
-        Request title <span class="required">*</span>
+        <span>Request title <span class="required">*</span></span>
+
         <input
           id="request-title"
           name="title"
@@ -30,18 +36,26 @@
           placeholder="e.g. Broken light in Room 204"
           required
         >
+
         <small>
           <span id="title-count"><%= (form.title || '').length %></span>/100 characters
         </small>
       </label>
 
+      <!-- CATEGORY AND PRIORITY -->
       <div class="form-row">
+
         <label for="request-category">
-          Category <span class="required">*</span>
+          <span>Category <span class="required">*</span></span>
+
           <select id="request-category" name="category" required>
             <option value="">Select category</option>
+
             <% ["Electrical", "Plumbing", "Furniture", "Air Conditioning", "Cleaning", "Other"].forEach(c => { %>
-              <option value="<%= c %>" <%= form.category === c ? "selected" : "" %>>
+              <option
+                value="<%= c %>"
+                <%= form.category === c ? "selected" : "" %>
+              >
                 <%= c %>
               </option>
             <% }) %>
@@ -49,19 +63,26 @@
         </label>
 
         <label for="request-priority">
-          Priority
+          <span>Priority</span>
+
           <select id="request-priority" name="priority">
             <% ["Low", "Normal", "High", "Urgent"].forEach(p => { %>
-              <option value="<%= p %>" <%= (form.priority || "Normal") === p ? "selected" : "" %>>
+              <option
+                value="<%= p %>"
+                <%= (form.priority || "Normal") === p ? "selected" : "" %>
+              >
                 <%= p %>
               </option>
             <% }) %>
           </select>
         </label>
+
       </div>
 
+      <!-- LOCATION -->
       <label for="request-location">
-        Building / room / location <span class="required">*</span>
+        <span>Building / room / location <span class="required">*</span></span>
+
         <input
           id="request-location"
           name="location"
@@ -70,13 +91,16 @@
           placeholder="e.g. Main Building, Room 204"
           required
         >
+
         <small>
           <span id="location-count"><%= (form.location || '').length %></span>/120 characters
         </small>
       </label>
 
+      <!-- DESCRIPTION -->
       <label for="request-description">
-        Description <span class="required">*</span>
+        <span>Description <span class="required">*</span></span>
+
         <textarea
           id="request-description"
           name="description"
@@ -85,35 +109,46 @@
           placeholder="Describe the issue and any useful details..."
           required
         ><%= form.description || '' %></textarea>
+
         <small>
           <span id="description-count"><%= (form.description || '').length %></span>/1500 characters.
           Please do not include passwords or other sensitive information.
         </small>
       </label>
 
+      <!-- FORM ACTIONS -->
       <div class="form-actions">
-        <a href="/dashboard" class="button button-ghost">Cancel</a>
+        <a href="/dashboard" class="button button-ghost">
+          Cancel
+        </a>
+
         <button type="submit" class="button button-primary">
           Submit request →
         </button>
       </div>
+
     </form>
   </section>
 
+  <!-- HELP CARD -->
   <aside class="help-card">
     <div class="help-icon">✦</div>
+
     <h3>Tips for a useful report</h3>
+
     <ul>
       <li>Choose the exact building and room.</li>
       <li>Describe what is broken or needs attention.</li>
       <li>Choose Urgent only for issues that need immediate attention.</li>
     </ul>
+
     <p class="muted">
       After submitting, you can track the request from My Requests.
     </p>
   </aside>
 </div>
 
+<!-- CHARACTER COUNTERS -->
 <script>
   const characterFields = [
     {
